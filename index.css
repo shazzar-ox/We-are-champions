@@ -1,0 +1,55 @@
+body
+{
+    user-select: none;
+}
+
+img {
+    width: 130px;
+    margin: 0px auto;
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    background-color: black;
+    color: white;
+    padding: 2% 3%;
+    text-align: center;
+    margin: 0px auto;
+}
+input {
+    /* height: 300px; */
+    width: 50%;
+    margin: 2% 0 3% 0;
+    padding: 3%;
+    background: #444059;
+    text-align: center;
+    color: white;
+    
+}
+.sub-class{
+    
+    display: flex;
+    gap:2%
+}
+button{
+    margin-top: 20px;
+    width: 100%;
+    padding: 5% 5%;
+    border-radius: 6px;
+    font-weight: bolder;
+    font-size: 20px;
+    background: #28A9F1;
+}
+textarea
+{
+    resize: none;
+    background: #444059;
+    color: white;
+}
+/* #endorcement-el {
+    /* background:white;
+    color:black;
+    padding : 0px 20px;
+    border: 10px solid black;
+    text-Align:justify */
