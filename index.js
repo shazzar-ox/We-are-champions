@@ -20,6 +20,7 @@ const publishEL = document.querySelector('#publish-el')
 const endorcementEl = document.querySelector('#endorcement-el')
 const fromEl = document.querySelector('#from-el')
 const toVal = document.querySelector('#to-el')
+let statChecker= false
 
 
 publishEL.addEventListener('click', function()
@@ -77,6 +78,7 @@ function loopThroughDatabase(arg)
         let finalDiv =  document.createElement('div')
         let likes = document.createElement('span')
         let countLikes = document.createElement('span')
+        let statusChecker= false
         let arrayId = arg[i]
 
         let {from , value ,toEL, counter, status } = arrayId [1]
@@ -85,9 +87,11 @@ function loopThroughDatabase(arg)
         fromDiv.textContent = `From ${from}`
         createDiv.textContent =  `${value}` 
         toDiv.textContent = `To ${toEL}`
+        let counted = counter
         
-        likes.textContent =`❤️️ ${counter}`
-        
+        likes.textContent = status ? '❤️':`🤍`
+        countLikes.textContent = `${counted}`
+            // likes.textContent
 
 
         // style each div section and its content content
@@ -100,41 +104,56 @@ function loopThroughDatabase(arg)
         toDiv.style.fontWeight ='bolder'
         createDiv.style.margin ='8% 0%'
        
-        likes.style.float ='right'
         countLikes.style.float ='right'
+        likes.style.float ='right'
+      
        
         
 
 
-        finalDiv.append(fromDiv, createDiv, toDiv , likes)
+        finalDiv.append(fromDiv, createDiv, toDiv, countLikes, likes)
 
         finalDiv.addEventListener('click',function()
         {
-
-            console.log(status)
+            const voteChecker = likes.textContent
+            console.log(statChecker)
+           
             if (status)
             {
-                arrayId[1].counter -=1
-                let {counter} = arrayId [1]
+                counted -=1
+                console.log(arrayId[1])
+                console.log(likes)
                 
-                likes.textContent =`🤍 ${counter}`
+                // let {counter} = arrayId [1]
+                
+                likes.textContent =`🤍 ${counted}`
+                statChecker= false
+                
+                console.log(counter)
                 let  newStatus = !status
                 
                 endorcementEl.textContent=''
-                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counter, status: newStatus})
-                
+                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counted, status: newStatus})
+ 
             }
             else
             {
-                arrayId[1].counter +=1
-                let {counter} = arrayId [1] 
+                console.log('true')
+                counted +=1
                 
-                likes.textContent =`❤️ ${counter}`
+                //  let {counter} = arrayId [1] 
+                 console.log(arrayId[1])
+                 console.log(likes)
+                
+                likes.textContent =` 😁 ${counted}`
+                console.log(counter)
+                statChecker= true
                 let  newStatus = !status
                 console.log(newStatus)
                 
                 endorcementEl.textContent=''
-                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counter, status: newStatus})
+                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counted, status: newStatus})
+                
                 
             }
             
