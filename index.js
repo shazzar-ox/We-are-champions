@@ -30,7 +30,7 @@ publishEL.addEventListener('click', function()
    if (value && fromValue && toValue)
         {
         clearDom()
-        let arrayValue = {"value": value, "from" : fromValue , 'toEL' : toValue, 'counter': 0}
+        let arrayValue = {"value": value, "from" : fromValue , 'toEL' : toValue, 'counter': 0, status: false}
         //console.log(arrayValue.counter)
         push(endorcementList,arrayValue)
         displayEL.value = ''
@@ -79,7 +79,7 @@ function loopThroughDatabase(arg)
         let countLikes = document.createElement('span')
         let arrayId = arg[i]
 
-        let {from , value ,toEL, counter } = arrayId [1]
+        let {from , value ,toEL, counter, status } = arrayId [1]
         
               
         fromDiv.textContent = `From ${from}`
@@ -110,13 +110,34 @@ function loopThroughDatabase(arg)
 
         finalDiv.addEventListener('click',function()
         {
-            arrayId[1].counter +=1
-            let {counter} = arrayId [1]
+
+            console.log(status)
+            if (status)
+            {
+                arrayId[1].counter -=1
+                let {counter} = arrayId [1]
+                
+                likes.textContent =`🤍 ${counter}`
+                let  newStatus = !status
+                
+                endorcementEl.textContent=''
+                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counter, status: newStatus})
+                
+            }
+            else
+            {
+                arrayId[1].counter +=1
+                let {counter} = arrayId [1] 
+                
+                likes.textContent =`❤️ ${counter}`
+                let  newStatus = !status
+                console.log(newStatus)
+                
+                endorcementEl.textContent=''
+                update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counter, status: newStatus})
+                
+            }
             
-            likes.textContent =`❤️️ ${counter}`
-            
-            endorcementEl.textContent=''
-            update(ref(dataBase, 'endorecementList/'+ arrayId [0]),{counter : counter})
            
             
         })
